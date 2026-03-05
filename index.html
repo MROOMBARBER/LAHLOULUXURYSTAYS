@@ -1,322 +1,289 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAHLOU LUXURY STAYS | Conciergerie Airbnb & Académie</title>
-    
-    <!-- 1. Tailwind CSS (Styling) -->
+    <title>LuxeStay | Conciergerie Airbnb & Formation de A à Z</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- 2. React Libraries (Logic) -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-    
-    <!-- 3. Babel (Bach l-browser y-fham React) -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js" crossorigin></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
-        
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-
-        /* Fallback l-icons bach may-kbiroch ila t3atle React */
-        svg {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .shadow-3xl {
-            box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.1);
-        }
-
-        @keyframes bounce-slow {
-            0%, 100% { transform: translateY(-5%); }
-            50% { transform: translateY(0); }
-        }
-        .animate-bounce-slow {
-            animation: bounce-slow 3s infinite;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        .airbnb-color { color: #FF385C; }
+        .airbnb-bg { background-color: #FF385C; }
+        .airbnb-border { border-color: #FF385C; }
+        .hero-gradient { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; }
     </style>
 </head>
-<body>
-    <div id="root"></div>
+<body class="bg-gray-50 text-gray-900 overflow-x-hidden">
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-
-        // Composants Icons Direct (SVG)
-        const Icon = ({ children, size = 24, className = "" }) => (
-            <svg 
-                width={size} 
-                height={size} 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className={className}
-                style={{ minWidth: size, minHeight: size }}
-            >
-                {children}
-            </svg>
-        );
-
-        const Icons = {
-            Home: (props) => <Icon {...props}><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22" /></Icon>,
-            Key: (props) => <Icon {...props}><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5" /></Icon>,
-            GraduationCap: (props) => <Icon {...props}><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5" /></Icon>,
-            CheckCircle: (props) => <Icon {...props}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01" /></Icon>,
-            TrendingUp: (props) => <Icon {...props}><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12" /></Icon>,
-            ShieldCheck: (props) => <Icon {...props}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10" /></Icon>,
-            Star: (props) => <Icon {...props}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></Icon>,
-            Menu: (props) => <Icon {...props}><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18" /></Icon>,
-            X: (props) => <Icon {...props}><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18" /></Icon>,
-            MapPin: (props) => <Icon {...props}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3" /></Icon>,
-            MessageSquare: (props) => <Icon {...props}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></Icon>
-        };
-
-        const WhatsAppIcon = ({ className = "w-6 h-6" }) => (
-            <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-        );
-
-        const App = () => {
-            const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-            const scrollTo = (id) => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-                setIsMenuOpen(false);
-            };
-
-            const phoneNumber = "212661389143";
-            const whatsappBaseUrl = `https://wa.me/${phoneNumber}`;
-            const whatsappAcademyUrl = `https://wa.me/${phoneNumber}?text=JE%20VEUX%20REJOINDRE%20L%20ACADEMIE`;
-            const whatsappPropertyUrl = `https://wa.me/${phoneNumber}?text=GERER%20MA%20propriété`;
-            const staticHeroImage = "https://i.postimg.cc/Y0H3mNrZ/design-interieur-appartement-luxe-moderne-rendu-3d-674881-1114-jpg.avif";
-
-            return (
-                <div className="min-h-screen bg-white text-slate-900 relative">
-                    {/* WhatsApp Float */}
-                    <a href={whatsappBaseUrl} target="_blank" rel="noopener noreferrer" className="fixed bottom-6 right-6 z-[100] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center group">
-                        <WhatsAppIcon className="w-8 h-8" />
-                        <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all duration-300 font-bold whitespace-nowrap uppercase text-[10px] tracking-widest">WhatsApp</span>
-                    </a>
-
-                    {/* Header */}
-                    <nav className="fixed w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="flex justify-between h-20 items-center">
-                                <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollTo('home')}>
-                                    <div className="bg-slate-900 p-2 rounded-lg">
-                                        <Icons.Home className="text-white w-5 h-5" />
-                                    </div>
-                                    <span className="text-lg md:text-2xl font-black tracking-tighter text-slate-900 uppercase">
-                                        Lahlou <span className="text-rose-600">Luxury Stays</span>
-                                    </span>
-                                </div>
-                                <div className="hidden md:flex items-center gap-6 font-semibold text-xs uppercase tracking-wider">
-                                    <button onClick={() => scrollTo('services')} className="hover:text-rose-600 transition">Conciergerie</button>
-                                    <button onClick={() => scrollTo('formation')} className="hover:text-rose-600 transition">Académie</button>
-                                    <button onClick={() => scrollTo('why-us')} className="hover:text-rose-600 transition">Expertise</button>
-                                    <button onClick={() => scrollTo('contact')} className="bg-rose-600 text-white px-5 py-2.5 rounded-full hover:bg-rose-700 transition shadow-lg shadow-rose-200">Contact</button>
-                                </div>
-                                <div className="md:hidden">
-                                    <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 text-slate-900">
-                                        {isMenuOpen ? <Icons.X /> : <Icons.Menu />}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        {isMenuOpen && (
-                            <div className="md:hidden bg-white border-b border-gray-100 py-6 px-6 flex flex-col gap-4 shadow-xl">
-                                <button onClick={() => scrollTo('services')} className="text-left font-bold uppercase text-sm py-2">Conciergerie</button>
-                                <button onClick={() => scrollTo('formation')} className="text-left font-bold uppercase text-sm py-2">Académie</button>
-                                <button onClick={() => scrollTo('why-us')} className="text-left font-bold uppercase text-sm py-2">Expertise</button>
-                                <button onClick={() => scrollTo('contact')} className="bg-rose-600 text-white px-6 py-4 rounded-xl font-bold text-center text-sm">Contactez-nous</button>
-                            </div>
-                        )}
-                    </nav>
-
-                    {/* Hero */}
-                    <section id="home" className="pt-32 pb-20 px-4 bg-gradient-to-b from-rose-50/20 to-white">
-                        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-                            <div className="lg:w-1/2 space-y-6 md:space-y-8 text-center lg:text-left">
-                                <div className="inline-flex items-center gap-2 bg-white border border-rose-100 text-rose-600 px-4 py-1.5 rounded-full font-bold text-[10px] uppercase tracking-widest shadow-sm">
-                                    <Icons.Star size={12} className="fill-rose-600" />
-                                    <span>Conciergerie de Luxe & Académie 2026</span>
-                                </div>
-                                <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.1] text-slate-950">
-                                    Maximisez vos revenus <span className="text-rose-600">Airbnb</span> sans effort.
-                                </h1>
-                                <p className="text-lg md:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-                                    Confiez-nous la gestion complète de vos biens ou apprenez à bâtir votre empire de location courte durée en 2026.
-                                </p>
-                                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
-                                    <button onClick={() => window.open(whatsappPropertyUrl, '_blank')} className="bg-slate-950 text-white px-8 py-4 rounded-2xl font-bold text-base hover:bg-slate-800 transition shadow-xl">
-                                        Gérer ma propriété
-                                    </button>
-                                    <button onClick={() => window.open(whatsappAcademyUrl, '_blank')} className="bg-white border-2 border-slate-200 text-slate-900 px-8 py-4 rounded-2xl font-bold text-base hover:border-rose-600 hover:text-rose-600 transition shadow-sm">
-                                        Rejoindre l'Académie
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="lg:w-1/2 relative w-full mt-8 lg:mt-0">
-                                <div className="absolute -inset-4 bg-rose-500/5 rounded-[3rem] blur-2xl"></div>
-                                <div className="relative w-full h-[350px] md:h-[500px] overflow-hidden rounded-[2.5rem] shadow-2xl bg-slate-100">
-                                    <img src={staticHeroImage} alt="Luxury Interior" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700 ease-out" />
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Services */}
-                    <section id="services" className="py-24 bg-white border-y border-gray-50">
-                        <div className="max-w-7xl mx-auto px-4 text-center">
-                            <h2 className="text-3xl md:text-5xl font-black mb-12 uppercase tracking-tighter">Gestion Complète A à Z</h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
-                                {[
-                                    { title: "Photos & Annonces", icon: <Icons.Star />, desc: "Photographie pro et copywriting stratégique pour dominer le marché." },
-                                    { title: "Conciergerie 24/7", icon: <Icons.Key />, desc: "Accueil personnalisé et assistance de tous vos voyageurs." },
-                                    { title: "Entretien de Luxe", icon: <Icons.ShieldCheck />, desc: "Ménage pro et blanchisserie qualité hôtelière après séjour." },
-                                    { title: "Maintenance", icon: <Icons.Home />, desc: "Intervention technique immédiate pour préserver votre bien." },
-                                    { title: "Prix Dynamiques", icon: <Icons.TrendingUp />, desc: "Algorithmes avancés pour maximiser votre taux d'occupation." },
-                                    { title: "Support Voyageurs", icon: <Icons.MessageSquare />, desc: "Réponse instantanée pour garantir des notes 5 étoiles." }
-                                ].map((s, i) => (
-                                    <div key={i} className="bg-slate-50 p-8 md:p-10 rounded-[2.5rem] hover:bg-white hover:shadow-2xl transition-all duration-300 group border border-transparent hover:border-rose-100">
-                                        <div className="w-12 h-12 bg-white text-rose-600 rounded-xl flex items-center justify-center mb-6 group-hover:bg-rose-600 group-hover:text-white transition-colors">
-                                            {s.icon}
-                                        </div>
-                                        <h3 className="text-xl md:text-2xl font-black mb-4">{s.title}</h3>
-                                        <p className="text-slate-500 font-medium leading-relaxed text-sm md:text-base">{s.desc}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Académie */}
-                    <section id="formation" className="py-20 px-4 max-w-7xl mx-auto">
-                        <div className="bg-slate-950 rounded-[3rem] md:rounded-[4rem] p-8 md:p-16 flex flex-col lg:flex-row items-center gap-12 relative overflow-hidden">
-                            <div className="lg:w-1/2 space-y-6 md:space-y-8 relative z-10 text-white text-center lg:text-left">
-                                <div className="inline-flex items-center gap-2 bg-rose-600/20 text-rose-400 px-5 py-2 rounded-full font-bold text-[10px] uppercase tracking-[0.2em]">
-                                    <Icons.GraduationCap size={16} />
-                                    <span>Airbnb Masterclass 2026</span>
-                                </div>
-                                <h2 className="text-4xl md:text-6xl font-black italic leading-tight">Devenez expert Airbnb.</h2>
-                                <p className="text-slate-400 text-lg md:text-xl font-medium">Apprenez nos méthodes exclusives pour lancer votre agence sans posséder d'appartement en 2026.</p>
-                                <button onClick={() => window.open(whatsappAcademyUrl, '_blank')} className="bg-rose-600 text-white px-10 py-4 rounded-2xl font-black text-lg hover:bg-rose-700 transition flex items-center gap-4 shadow-xl shadow-rose-900/40 mx-auto lg:mx-0">
-                                    <WhatsAppIcon className="w-6 h-6" /> Rejoindre l'Académie
-                                </button>
-                            </div>
-                            <div className="lg:w-1/2 bg-white rounded-[2rem] p-8 md:p-10 shadow-2xl text-slate-900 w-full relative z-10">
-                                <h4 className="font-black text-xl md:text-2xl uppercase mb-8 tracking-tighter">Programme 2026</h4>
-                                <div className="space-y-3 mb-8">
-                                    {["Stratégie de Marché & Niche", "Acquisition & Contrats Juridiques", "Outils d'Automatisation", "Scaling & Croissance Agence"].map((m, i) => (
-                                        <div key={i} className="flex items-center gap-4 p-4 border border-gray-100 rounded-xl font-bold hover:bg-slate-50 transition text-sm">
-                                            <span className="text-slate-400">0{i+1}</span> {m}
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="flex justify-between items-center pt-6 border-t font-black">
-                                    <div>
-                                        <p className="text-[10px] text-slate-400 uppercase tracking-widest mb-1">Tarif Spécial 2026</p>
-                                        <p className="text-2xl md:text-3xl tracking-tighter">1 699 MAD</p>
-                                    </div>
-                                    <div className="text-rose-600 text-[10px] font-black uppercase">Places Limitées</div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Expertise Section */}
-                    <section id="why-us" className="py-24 max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <div className="space-y-6 text-center lg:text-left">
-                            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter leading-tight">
-                                Expertise <br/> <span className="text-rose-600 underline underline-offset-8 decoration-rose-200">Lahlou Luxury Stays</span>
-                            </h2>
-                            <div className="space-y-4 pt-4 text-left inline-block lg:block">
-                                {["Transparence totale sur vos revenus", "Prestige & Branding Premium", "Sécurité & Contrôle des Voyageurs", "Paiements Accélérés et Directs"].map((t, i) => (
-                                    <div key={i} className="flex items-center gap-4 font-black text-base md:text-lg">
-                                        <Icons.CheckCircle className="text-rose-600 shrink-0" size={20} />
-                                        <span>{t}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4 md:gap-6 lg:gap-8">
-                            <div className="bg-slate-50 p-6 md:p-10 rounded-[2.5rem] text-center border border-slate-100 font-black shadow-sm group hover:border-rose-200 transition-colors">
-                                <p className="text-3xl md:text-5xl tracking-tighter text-slate-900">+500</p>
-                                <p className="text-[8px] md:text-[10px] text-slate-400 uppercase tracking-widest mt-2">Satisfaits</p>
-                            </div>
-                            <div className="bg-rose-600 p-6 md:p-10 rounded-[2.5rem] text-center text-white font-black shadow-xl shadow-rose-200">
-                                <p className="text-3xl md:text-5xl tracking-tighter">5.0</p>
-                                <p className="text-[8px] md:text-[10px] text-rose-200 uppercase tracking-widest mt-2">Note Guests</p>
-                            </div>
-                            <div className="bg-slate-950 p-6 md:p-10 rounded-[2.5rem] text-center text-white font-black shadow-2xl">
-                                <p className="text-3xl md:text-5xl tracking-tighter">58</p>
-                                <p className="text-[8px] md:text-[10px] text-slate-500 uppercase tracking-widest mt-2">Biens Gérés</p>
-                            </div>
-                            <div className="bg-white p-6 md:p-10 rounded-[2.5rem] border border-slate-100 text-center font-black shadow-sm">
-                                <p className="text-3xl md:text-5xl text-rose-600 tracking-tighter">24h</p>
-                                <p className="text-[8px] md:text-[10px] text-slate-400 uppercase tracking-widest mt-2">Réactivité</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Footer */}
-                    <footer id="contact" className="py-20 bg-white border-t border-slate-100 text-center space-y-12">
-                        <div className="flex flex-col items-center gap-6">
-                            <div className="bg-slate-950 p-3 rounded-2xl"><Icons.Home className="text-white w-6 h-6" /></div>
-                            <span className="text-2xl md:text-3xl font-black uppercase italic tracking-tighter">Lahlou <span className="text-rose-600">Luxury Stays</span></span>
-                        </div>
-                        
-                        <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 lg:gap-24 px-4">
-                            <a href={whatsappBaseUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
-                                <WhatsAppIcon className="w-10 h-10 md:w-12 md:h-12 text-[#25D366] group-hover:scale-110 transition-transform" />
-                                <div className="text-left">
-                                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">WhatsApp Direct</p>
-                                    <p className="text-xl md:text-2xl font-bold tracking-tight">+212 6 61 38 91 43</p>
-                                </div>
-                            </a>
-                            <div className="flex items-center gap-4">
-                                <div className="bg-rose-50 p-3 rounded-full text-rose-600"><Icons.MapPin size={24} /></div>
-                                <div className="text-left font-black">
-                                    <p className="text-[9px] text-slate-400 uppercase tracking-[0.2em] mb-1">Locaux Nationaux</p>
-                                    <p className="text-xs md:text-sm tracking-tight">CASABLANCA / RABAT / MARRAKECH</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="pt-12 border-t border-gray-50 max-w-2xl mx-auto px-4">
-                            <p className="text-slate-300 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.6em]">© 2026 Lahlou Luxury Stays. All Rights Reserved.</p>
-                        </div>
-                    </footer>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="home" class="airbnb-color w-8 h-8"></i>
+                    <span class="text-2xl font-extrabold tracking-tight airbnb-color">LuxeStay</span>
                 </div>
-            );
-        };
+                <div class="hidden md:flex space-x-8 items-center font-medium">
+                    <a href="#agence" class="hover:text-[#FF385C] transition-colors">L'Agence</a>
+                    <a href="#formation" class="hover:text-[#FF385C] transition-colors">Formation A-Z</a>
+                    <a href="#temoignages" class="hover:text-[#FF385C] transition-colors">Témoignages</a>
+                    <a href="#contact" class="bg-gray-900 text-white px-6 py-2.5 rounded-full hover:bg-black transition-all">Démarrer</a>
+                </div>
+                <button class="md:hidden" onclick="toggleMenu()">
+                    <i data-lucide="menu" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100 p-4 space-y-4">
+            <a href="#agence" class="block py-2">L'Agence</a>
+            <a href="#formation" class="block py-2">Formation A-Z</a>
+            <a href="#contact" class="block py-2 text-center airbnb-bg text-white rounded-lg">Contactez-nous</a>
+        </div>
+    </nav>
 
-        const renderApp = () => {
-            const rootElement = document.getElementById('root');
-            if (rootElement) {
-                const root = ReactDOM.createRoot(rootElement);
-                root.render(<App />);
+    <!-- Hero Section -->
+    <header class="hero-gradient h-[90vh] flex items-center justify-center text-center text-white px-4">
+        <div class="max-w-4xl">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+                Maximisez vos revenus Airbnb avec LuxeStay
+            </h1>
+            <p class="text-lg md:text-xl mb-10 text-gray-200">
+                Nous gérons votre propriété à 100% ou nous vous formons pour devenir un expert de la location courte durée.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#agence" class="airbnb-bg text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                    Confier mon bien <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+                <a href="#formation" class="bg-white text-gray-900 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all flex items-center justify-center gap-2 border border-gray-200 shadow-sm">
+                    Apprendre le métier <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section Agence -->
+    <section id="agence" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="airbnb-color font-bold uppercase tracking-widest text-sm">Service Conciergerie</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2">Déléguez tout, encaissez le reste</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="p-8 rounded-2xl bg-gray-50 border border-gray-100 hover:shadow-xl transition-all group">
+                    <div class="w-14 h-14 airbnb-bg/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="camera" class="airbnb-color w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Annonces Optimisées</h3>
+                    <p class="text-gray-600">Photos professionnelles, copywriting séducteur et SEO pour être toujours en première page.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="p-8 rounded-2xl bg-gray-50 border border-gray-100 hover:shadow-xl transition-all group">
+                    <div class="w-14 h-14 airbnb-bg/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="sparkles" class="airbnb-color w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Ménage & Blanchisserie</h3>
+                    <p class="text-gray-600">Un standard hôtelier 5 étoiles pour chaque voyageur. Propreté garantie à 100%.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="p-8 rounded-2xl bg-gray-50 border border-gray-100 hover:shadow-xl transition-all group">
+                    <div class="w-14 h-14 airbnb-bg/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i data-lucide="trending-up" class="airbnb-color w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Yield Management</h3>
+                    <p class="text-gray-600">Algorithmes de tarification dynamique pour maximiser votre taux d'occupation et vos revenus.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Formation -->
+    <section id="formation" class="py-24 bg-gray-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-10">
+            <i data-lucide="graduation-cap" class="w-96 h-96"></i>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span class="text-[#FF385C] font-bold uppercase tracking-widest text-sm">Formation Masterclass</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-4 mb-8">Devenez un Pro d'Airbnb de A à Z</h2>
+                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                        Que vous soyez propriétaire ou que vous souhaitiez lancer votre propre agence de conciergerie, notre formation complète vous donne toutes les clés.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-start gap-4">
+                            <i data-lucide="check-circle-2" class="text-green-400 w-6 h-6 mt-1 flex-shrink-0"></i>
+                            <div>
+                                <h4 class="font-bold">Module 1 : Légal & Fiscalité</h4>
+                                <p class="text-gray-400 text-sm">Tout pour être en règle et optimiser vos impôts.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i data-lucide="check-circle-2" class="text-green-400 w-6 h-6 mt-1 flex-shrink-0"></i>
+                            <div>
+                                <h4 class="font-bold">Module 2 : La Psychologie du Voyageur</h4>
+                                <p class="text-gray-400 text-sm">Comment obtenir des avis 5 étoiles systématiquement.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i data-lucide="check-circle-2" class="text-green-400 w-6 h-6 mt-1 flex-shrink-0"></i>
+                            <div>
+                                <h4 class="font-bold">Module 3 : Automatisation Totale</h4>
+                                <p class="text-gray-400 text-sm">Gérez 10 appartements en y passant seulement 2h par semaine.</p>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <button class="airbnb-bg text-white px-10 py-5 rounded-2xl font-bold text-xl hover:scale-105 transition-transform shadow-2xl">
+                        Accéder au Programme Complet
+                    </button>
+                </div>
+                
+                <div class="bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-lg shadow-2xl">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">Offre de Lancement</h3>
+                        <p class="text-gray-400 italic">Places limitées pour un coaching personnalisé</p>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                            <span>Formation Vidéo (40h+)</span>
+                            <span class="font-bold">Inclus</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                            <span>Modèles de messages & Contrats</span>
+                            <span class="font-bold">Inclus</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-4 border-b border-white/10">
+                            <span>Groupe Slack Privé</span>
+                            <span class="font-bold">Inclus</span>
+                        </div>
+                        <div class="pt-6">
+                            <div class="flex items-baseline justify-center gap-2">
+                                <span class="text-4xl font-black">497€</span>
+                                <span class="text-gray-500 line-through">1200€</span>
+                            </div>
+                            <p class="text-center text-xs text-gray-500 mt-2">Paiement en 3x possible</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="bg-gray-50 rounded-[3rem] overflow-hidden flex flex-col md:flex-row shadow-sm border border-gray-100">
+                <div class="md:w-1/2 p-12 md:p-20 flex flex-col justify-center">
+                    <h2 class="text-4xl font-bold mb-6">Prêt à passer à l'étape supérieure ?</h2>
+                    <p class="text-gray-600 mb-10 text-lg leading-relaxed">
+                        Laissez-nous vos coordonnées, un expert de l'équipe LuxeStay vous rappellera sous 24h pour discuter de votre projet (Gestion ou Formation).
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 airbnb-bg rounded-full flex items-center justify-center text-white">
+                                <i data-lucide="phone" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-semibold text-lg">+33 6 00 00 00 00</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 airbnb-bg rounded-full flex items-center justify-center text-white">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-semibold text-lg">contact@luxestay.com</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 bg-white p-12 md:p-20 border-l border-gray-100">
+                    <form id="contactForm" class="space-y-6" onsubmit="handleContact(event)">
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Votre Nom</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#FF385C] outline-none transition-all" placeholder="Jean Dupont" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#FF385C] outline-none transition-all" placeholder="jean@exemple.com" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Je suis intéressé par...</label>
+                            <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#FF385C] outline-none transition-all appearance-none bg-white">
+                                <option>La Conciergerie (Gestion de bien)</option>
+                                <option>La Formation (Apprendre le business)</option>
+                                <option>Les deux</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-2">Message</label>
+                            <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#FF385C] outline-none transition-all" placeholder="Parlez-nous de votre projet..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full airbnb-bg text-white font-bold py-4 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all">
+                            Envoyer ma demande
+                        </button>
+                    </form>
+                    <div id="successMsg" class="hidden mt-6 p-4 bg-green-100 text-green-700 rounded-xl text-center font-bold">
+                        Merci ! Nous vous recontactons très vite.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-12 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center gap-2 mb-6">
+                <i data-lucide="home" class="airbnb-color w-6 h-6"></i>
+                <span class="text-xl font-black airbnb-color">LuxeStay</span>
+            </div>
+            <p class="text-gray-500 text-sm mb-6">© 2024 LuxeStay Conciergerie & Academy. Tous droits réservés.</p>
+            <div class="flex justify-center gap-8 text-gray-400">
+                <a href="#" class="hover:text-gray-900 transition-colors"><i data-lucide="instagram"></i></a>
+                <a href="#" class="hover:text-gray-900 transition-colors"><i data-lucide="linkedin"></i></a>
+                <a href="#" class="hover:text-gray-900 transition-colors"><i data-lucide="facebook"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('hidden');
+            // Basic icon swap (menu to x)
+            if(menu.classList.contains('hidden')) {
+                icon.setAttribute('data-lucide', 'menu');
+            } else {
+                icon.setAttribute('data-lucide', 'x');
             }
-        };
+            lucide.createIcons();
+        }
 
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', renderApp);
-        } else {
-            renderApp();
+        // Form handling
+        function handleContact(e) {
+            e.preventDefault();
+            const form = document.getElementById('contactForm');
+            const success = document.getElementById('successMsg');
+            
+            form.classList.add('opacity-50', 'pointer-events-none');
+            
+            // Simulate API call
+            setTimeout(() => {
+                form.style.display = 'none';
+                success.classList.remove('hidden');
+            }, 1000);
         }
     </script>
 </body>

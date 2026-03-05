@@ -1,0 +1,278 @@
+import React, { useState } from 'react';
+import { 
+  Home, 
+  Key, 
+  Users, 
+  GraduationCap, 
+  CheckCircle, 
+  MessageSquare, 
+  TrendingUp, 
+  ShieldCheck, 
+  Star,
+  Menu,
+  X,
+  ChevronRight,
+  Phone,
+  MapPin
+} from 'lucide-react';
+
+/**
+ * Site Web LAHLOU LUXURY STAYS - Version 2026 
+ * Conciergerie Airbnb & Académie de Formation
+ */
+const App = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Défilement fluide vers les sections
+  const scrollTo = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMenuOpen(false);
+  };
+
+  // Coordonnées et URLs WhatsApp personnalisées
+  const phoneNumber = "212661389143";
+  const whatsappBaseUrl = `https://wa.me/${phoneNumber}`;
+  const whatsappAcademyUrl = `https://wa.me/${phoneNumber}?text=JE%20VEUX%20REJOINDRE%20L%20ACADEMIE`;
+  const whatsappPropertyUrl = `https://wa.me/${phoneNumber}?text=GERER%20MA%20propriété`;
+  
+  // Image d'intérieur de luxe (URL Postimg)
+  const staticHeroImage = "https://i.postimg.cc/Y0H3mNrZ/design-interieur-appartement-luxe-moderne-rendu-3d-674881-1114-jpg.avif";
+
+  // Icône WhatsApp officielle (SVG)
+  const WhatsAppIcon = ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  );
+
+  return (
+    <div className="min-h-screen bg-white text-slate-900 font-sans relative">
+      {/* Bouton WhatsApp Flottant */}
+      <a 
+        href={whatsappBaseUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-8 right-8 z-[100] bg-[#25D366] text-white p-4 rounded-full shadow-[0_10px_25px_rgba(37,211,102,0.4)] hover:scale-110 transition-transform flex items-center justify-center group"
+      >
+        <WhatsAppIcon className="w-8 h-8" />
+        <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all duration-300 font-bold whitespace-nowrap">
+          WhatsApp
+        </span>
+      </a>
+
+      {/* Navigation */}
+      <nav className="fixed w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-20 items-center">
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollTo('home')}>
+              <div className="bg-slate-900 p-2 rounded-lg">
+                <Home className="text-white w-6 h-6" />
+              </div>
+              <span className="text-xl md:text-2xl font-black tracking-tighter text-slate-900 uppercase">
+                Lahlou <span className="text-rose-600">Luxury Stays</span>
+              </span>
+            </div>
+
+            <div className="hidden md:flex items-center gap-8 font-semibold text-sm uppercase tracking-wider">
+              <button onClick={() => scrollTo('services')} className="hover:text-rose-600 transition">Conciergerie</button>
+              <button onClick={() => scrollTo('formation')} className="hover:text-rose-600 transition">Académie</button>
+              <button onClick={() => scrollTo('why-us')} className="hover:text-rose-600 transition">Expertise</button>
+              <button onClick={() => scrollTo('contact')} className="bg-rose-600 text-white px-6 py-3 rounded-full hover:bg-rose-700 transition">
+                Contact
+              </button>
+            </div>
+
+            <div className="md:hidden">
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2">
+                {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section id="home" className="pt-40 pb-24 px-4 bg-gradient-to-b from-rose-50/30 to-white">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+          <div className="lg:w-1/2 space-y-8 text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 bg-white border border-rose-100 text-rose-600 px-5 py-2 rounded-full font-bold text-xs uppercase tracking-widest">
+              <Star size={14} fill="currentColor" />
+              <span>Expert Airbnb & Académie 2026</span>
+            </div>
+            <h1 className="text-5xl lg:text-7xl font-black leading-[1.1] text-slate-950">
+              Maximisez vos revenus <span className="text-rose-600">Airbnb</span> sans effort.
+            </h1>
+            <p className="text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 font-medium">
+              Confiez-nous la gestion de vos biens ou apprenez à bâtir votre empire immobilier courte durée en 2026.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+              <button 
+                onClick={() => window.open(whatsappPropertyUrl, '_blank')} 
+                className="bg-slate-950 text-white px-10 py-5 rounded-2xl font-bold text-lg hover:bg-slate-800 transition shadow-2xl"
+              >
+                Gérer ma propriété
+              </button>
+              <button 
+                onClick={() => window.open(whatsappAcademyUrl, '_blank')}
+                className="bg-white border-2 border-slate-200 text-slate-900 px-10 py-5 rounded-2xl font-bold text-lg hover:border-rose-600 hover:text-rose-600 transition shadow-md"
+              >
+                Rejoindre l'Académie
+              </button>
+            </div>
+          </div>
+
+          <div className="lg:w-1/2 relative group w-full">
+            <div className="absolute -inset-4 bg-rose-500/10 rounded-[3rem] blur-2xl"></div>
+            <div className="relative w-full h-[550px] overflow-hidden rounded-[2.5rem] shadow-2xl">
+              <img 
+                src={staticHeroImage} 
+                alt="Intérieur de luxe Lahlou Luxury Stays" 
+                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-4 text-center mb-20">
+          <h2 className="text-4xl md:text-5xl font-black text-slate-950 mb-6 uppercase tracking-tighter">Gestion Complète A à Z</h2>
+          <div className="w-24 h-1.5 bg-rose-600 mx-auto rounded-full"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {[
+            { title: "Photos & Annonces", desc: "Photographie pro et copywriting stratégique pour dominer le marché.", icon: <Star /> },
+            { title: "Conciergerie 24/7", desc: "Accueil personnalisé et assistance complète de tous vos voyageurs.", icon: <Key /> },
+            { title: "Entretien de Luxe", desc: "Ménage pro et blanchisserie qualité hôtelière après chaque séjour.", icon: <ShieldCheck /> },
+            { title: "Maintenance Réactive", desc: "Intervention technique immédiate pour préserver votre patrimoine.", icon: <Home /> },
+            { title: "Prix Dynamiques", desc: "Ajustement des tarifs en temps réel pour maximiser le profit.", icon: <TrendingUp /> },
+            { title: "Support Voyageurs", desc: "Réponse instantanée pour garantir les meilleures notes.", icon: <MessageSquare /> }
+          ].map((service, idx) => (
+            <div key={idx} className="bg-slate-50 p-10 rounded-[2.5rem] hover:bg-white hover:shadow-2xl transition-all border border-transparent hover:border-rose-100 group">
+              <div className="w-14 h-14 bg-white text-rose-600 rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:bg-rose-600 group-hover:text-white transition-colors">
+                {service.icon}
+              </div>
+              <h3 className="text-2xl font-black mb-4">{service.title}</h3>
+              <p className="text-slate-500 font-medium">{service.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Académie Section */}
+      <section id="formation" className="py-24 px-4">
+        <div className="max-w-7xl mx-auto bg-slate-950 rounded-[4rem] p-10 md:p-20 flex flex-col lg:flex-row items-center gap-16 relative overflow-hidden">
+          <div className="lg:w-1/2 space-y-8 relative z-10">
+            <div className="inline-flex items-center gap-2 bg-rose-600/20 text-rose-400 px-5 py-2 rounded-full font-bold text-xs uppercase">
+              <GraduationCap size={16} />
+              <span>Masterclass 2026</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-white leading-tight italic">
+              Devenez expert Airbnb.
+            </h2>
+            <p className="text-slate-400 text-xl font-medium">
+              Lancement de votre agence sans posséder d'appartement. Programme complet de A à Z.
+            </p>
+            <button 
+              onClick={() => window.open(whatsappAcademyUrl, '_blank')}
+              className="bg-rose-600 text-white px-12 py-5 rounded-2xl font-black text-xl hover:bg-rose-700 transition shadow-xl flex items-center gap-4"
+            >
+              <WhatsAppIcon className="w-6 h-6" />
+              Rejoindre l'Académie
+            </button>
+          </div>
+          
+          <div className="lg:w-1/2 relative z-10 w-full">
+            <div className="bg-white rounded-[2.5rem] p-10 shadow-2xl text-slate-900">
+              <h4 className="font-black text-2xl uppercase mb-8 tracking-tighter">Programme Académie</h4>
+              <div className="space-y-4">
+                {["Stratégie de Marché & Niche", "Acquisition & Contrats", "Outils d'Automatisation", "Scaling & Marketing"].map((module, i) => (
+                  <div key={i} className="flex items-center gap-5 p-4 rounded-2xl border border-gray-100">
+                    <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-sm font-black text-slate-400">0{i+1}</div>
+                    <p className="font-bold text-slate-700">{module}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-10 pt-8 border-t border-gray-100 flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Tarif 2026</p>
+                  <p className="text-4xl font-black text-slate-950 tracking-tighter">1 699 MAD</p>
+                </div>
+                <div className="bg-rose-50 px-4 py-2 rounded-xl text-rose-600 font-black text-xs uppercase">Places Limitées</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Expertise & Stats */}
+      <section id="why-us" className="py-32 px-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div className="space-y-8">
+            <h2 className="text-4xl md:text-5xl font-black text-slate-950 uppercase tracking-tighter">L'Expertise <span className="text-rose-600">Lahlou</span></h2>
+            <div className="space-y-6">
+              {["Transparence totale sur vos revenus", "Prestige & Branding Premium", "Sécurité & Contrôle des voyageurs", "Paiements directs et rapides"].map((item, i) => (
+                <div key={i} className="flex items-center gap-4">
+                  <CheckCircle className="text-rose-600 shrink-0" size={24} />
+                  <p className="font-black text-slate-900 text-lg">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-6">
+            <div className="bg-slate-50 p-10 rounded-[3rem] text-center border border-slate-100">
+              <p className="text-5xl font-black text-slate-950 mb-2">+500</p>
+              <p className="text-xs font-black uppercase text-slate-400">Clients Satisfaits</p>
+            </div>
+            <div className="bg-rose-600 p-10 rounded-[3rem] text-center text-white shadow-xl shadow-rose-200">
+              <p className="text-5xl font-black mb-2">5.0</p>
+              <p className="text-xs font-black uppercase text-rose-200">Note Guests</p>
+            </div>
+            <div className="bg-slate-950 p-10 rounded-[3rem] text-center text-white shadow-xl">
+              <p className="text-5xl font-black mb-2">58</p>
+              <p className="text-xs font-black uppercase text-slate-400">Biens Gérés</p>
+            </div>
+            <div className="bg-white p-10 rounded-[3rem] border border-slate-100 text-center">
+              <p className="text-5xl font-black text-rose-600 mb-2">24h</p>
+              <p className="text-xs font-black uppercase text-slate-400">Réactivité</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer / Contact */}
+      <footer id="contact" className="py-20 bg-white border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 text-center space-y-12">
+          <div className="flex items-center justify-center gap-3">
+            <span className="text-2xl font-black text-slate-950 uppercase tracking-tighter italic">Lahlou <span className="text-rose-600">Luxury Stays</span></span>
+          </div>
+          
+          <div className="flex flex-col md:flex-row justify-center gap-10 md:gap-20">
+             <a href={whatsappBaseUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-4 group">
+                <WhatsAppIcon className="w-10 h-10 text-[#25D366] group-hover:scale-110 transition-transform" />
+                <span className="text-2xl font-black text-slate-900">+212 6 61 38 91 43</span>
+             </a>
+             <div className="flex items-center justify-center gap-4">
+                <MapPin className="text-rose-600" size={32} />
+                <div className="text-left">
+                  <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Nos Locaux</p>
+                  <p className="font-black text-slate-900 uppercase">CASABLANCA / RABAT / MARRAKECH</p>
+                </div>
+             </div>
+          </div>
+
+          <p className="text-slate-300 text-xs font-black uppercase tracking-[0.4em] pt-10">
+            © 2026 Lahlou Luxury Stays. Tous droits réservés.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default App;
